@@ -18,6 +18,13 @@
   const ids={regions:25,meet:26,shift:27,tasks:28,research:29,challenge:30,ideas:31,support:32,data:33,feedback:34};
   const extraIds=new Set(Object.values(ids).filter(x=>x!==ids.regions));
   const originalChapters=CHAPTERS.map(c=>({...c,slides:[...c.slides]}));
+  // Omit the requested teaching slides, regional activity report and feedback.
+  const removedSlides=new Set([7,10,15,33,34]);
+  const removedSlideTargets={7:11,10:11,15:24,33:22,34:22};
+  for(const [id,target] of Object.entries(REDIRECT)){
+    if(removedSlides.has(target))REDIRECT[id]=removedSlideTargets[target];
+  }
+  Object.assign(REDIRECT,removedSlideTargets);
   const initialHash=window.VACANCY_INITIAL_HASH||location.hash;
   let selected='',showRegionChoices=false;
   try{selected=new URL(location.href).searchParams.get('region')||localStorage.getItem('seminar-region')||'';}catch{}
@@ -65,7 +72,8 @@
       next.find(c=>c.slides.includes(24)).slides.push(ids.challenge,ids.ideas);
       const last=next.find(c=>c.slides.includes(22));last.slides.splice(last.slides.indexOf(22),0,ids.support,ids.data,ids.feedback);
     }
-    CHAPTERS.splice(0,CHAPTERS.length,...next);FLOW.splice(0,FLOW.length,...CHAPTERS.flatMap(c=>c.slides));
+    for(const chapter of next)chapter.slides=chapter.slides.filter(id=>!removedSlides.has(id));
+    CHAPTERS.splice(0,CHAPTERS.length,...next.filter(chapter=>chapter.slides.length));FLOW.splice(0,FLOW.length,...CHAPTERS.flatMap(c=>c.slides));
     if(!enabled()&&R.mode==='tasks')R.mode='modes';
     for(const l of ['kz','ru'])FINAL_UI[l].subtitles[18]=enabled()?(l==='kz'?'Алдымен іске қосу қадамдарын орындаңыз, қажет болса бейненұсқаулықты ашыңыз.':'Начните с шагов активации, затем при необходимости откройте видеоинструкцию.'):originalActivationSubtitle[l];
   }
