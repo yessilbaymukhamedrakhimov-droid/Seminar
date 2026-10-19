@@ -18,9 +18,9 @@
   const ids={regions:25,meet:26,shift:27,tasks:28,research:29,challenge:30,ideas:31,support:32,data:33,feedback:34};
   const extraIds=new Set(Object.values(ids).filter(x=>x!==ids.regions));
   const originalChapters=CHAPTERS.map(c=>({...c,slides:[...c.slides]}));
-  // Omit former expanded-edition slides 7, 8, 11, 20 and 21.
-  const removedSlides=new Set([26,27,29,33,34]);
-  const removedSlideTargets={26:7,27:7,29:11,33:22,34:22};
+  // Omit the selected introduction, research, ideas, activity and feedback slides.
+  const removedSlides=new Set([26,27,29,31,33,34]);
+  const removedSlideTargets={26:7,27:7,29:11,31:18,33:22,34:22};
   for(const [id,target] of Object.entries(REDIRECT)){
     if(removedSlides.has(target))REDIRECT[id]=removedSlideTargets[target];
   }
