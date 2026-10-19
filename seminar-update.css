@@ -1,4 +1,66 @@
 /* Additions use the existing Bilim blue/teal palette and presentation shell. */
+.usage-limit-summary{padding:18px 22px;border-radius:16px;background:#edf2ff;border:1px solid #dce4fb;margin:18px 0}
+.usage-limit-summary h3{font-size:22px;margin:0 0 8px}
+.usage-culture p{font-size:16px;line-height:1.5;margin:0;color:#536078}
+.usage-rules{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.usage-windows{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.usage-windows article{border:1px solid #d9e3f3;border-radius:14px;padding:16px 20px;background:#f4f7ff}
+.usage-windows strong{display:block;font-size:19px;color:#304e97;margin-bottom:8px}
+.usage-culture .usage-windows-note{font-size:13px;color:#6a768b;margin:10px 0 18px}
+@media(max-width:650px){.usage-windows{grid-template-columns:1fr}}
+.usage-proverb .usage-rules{grid-template-columns:repeat(3,minmax(0,1fr))}
+.usage-proverb .usage-limit-summary{background:#eaf7f3;border-color:#c9e7de}
+.usage-proverb .usage-limit-summary h3{font-size:30px;color:#175a4d;margin:10px 0}
+.usage-paid-message{padding:14px 18px;margin:14px 0;border-radius:12px;background:#fff9e8;border:1px solid #ecddb3}
+.usage-paid-message>strong{display:block;font-size:23px;color:#765716;margin-bottom:8px}
+.usage-paid-message p{color:#635436}
+@media(max-width:900px){.usage-proverb .usage-rules{grid-template-columns:1fr}.usage-proverb .usage-limit-summary h3{font-size:26px}}
+.usage-rules article{display:flex;gap:14px;align-items:flex-start;padding:18px;border:1px solid #dce3ef;border-radius:16px;background:#fff}
+.usage-rule-number{flex:none;display:grid;place-items:center;width:32px;height:32px;background:#e6f5f2;border-radius:9px;color:#078778;font-size:14px;font-weight:800}
+.usage-rules h4{font-size:18px;margin:0 0 8px;color:#203048}
+.usage-example{display:flex;gap:24px;align-items:center;padding:17px 20px;margin-top:16px;border-left:4px solid #00998b;border-radius:12px;background:#eef9f5}
+.usage-example>span{font-weight:700;color:#087668;flex:none}
+.usage-example s{color:#788395}.usage-example strong{color:#174b41;font-weight:600}
+.usage-culture .usage-limit-reached{font-size:14px;margin-top:16px}
+.usage-source{display:inline-flex;gap:7px;align-items:center;color:#697891;font-size:12px;margin-top:12px}.usage-source svg{width:14px;height:14px}
+@media(max-width:760px){.usage-rules{grid-template-columns:1fr}.usage-example{align-items:flex-start;flex-direction:column;gap:8px}.usage-rules article{padding:15px}.usage-limit-summary{padding:16px}}
+.org-history-tab>svg{width:44px;height:44px;flex:none;padding:8px;color:#009c91;background:#e6f5f2;border-radius:12px}
+.org-history-tab[aria-pressed=true]>svg{color:#fff;background:#ffffff24}
+.org-stage.org-history-stage{padding:24px;border-radius:28px;overflow:auto}
+.org-history-stage .project-start{padding:0;margin:0;border:0;border-radius:0;background:none}
+.org-history-stage .project-start-main{grid-template-columns:1fr;gap:16px}
+.org-history-stage .project-news-photo{max-height:210px;object-fit:contain;background:#eef3f7}
+.org-history-stage .project-start h3{font-size:25px;margin:8px 0 12px}
+.org-history-stage .project-start p{font-size:15px;line-height:1.5}
+.org-history-stage .project-news-countries li{font-size:12px;padding:7px 10px}
+.svg-mini h3{font-size:24px;margin:0 0 16px}
+.svg-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.svg-mini-grid figure{margin:0;overflow:hidden;border:1px solid #dce4ed;border-radius:14px;background:white}
+.svg-mini-grid img,.svg-mini-grid svg{display:block;width:100%;height:180px;object-fit:contain;background:#f6f8f3}
+.svg-mini .leaf-annotation{display:none}
+.svg-mini-grid figcaption{display:grid;gap:6px;padding:12px 16px;color:#536078;font-size:15px;line-height:1.4}
+.svg-mini-grid figcaption strong{color:#24324a;font-size:17px}
+.svg-mini-takeaway{margin:16px 0 0;padding:14px 18px;background:#eaf7f3;border-radius:12px;color:#19594e;font-size:16px;line-height:1.45}
+@media(max-width:600px){.svg-mini{padding:18px}.svg-mini-grid{gap:10px}.svg-mini-grid img,.svg-mini-grid svg{height:140px}.svg-mini-grid figcaption{padding:10px;font-size:13px}.svg-mini-grid figcaption strong{font-size:15px}.svg-mini h3{font-size:21px}.svg-mini-takeaway{font-size:14px}}
+.project-start{padding:24px;margin:0 0 28px;border:1px solid #d7e3ef;border-radius:22px;background:linear-gradient(135deg,#fff,#f0f7fc)}
+.project-start-main{display:grid;grid-template-columns:minmax(230px,.9fr) minmax(0,1.3fr);align-items:center;gap:24px}
+.project-news-photo{display:block;width:100%;height:auto;border-radius:15px}
+.project-start h3{font-size:28px;line-height:1.2;margin:10px 0 14px}
+.project-start p{font-size:16px;line-height:1.6;color:#45536b;margin:0 0 12px}
+.project-start h4{font-size:16px;margin:18px 0 10px}
+.project-news-countries{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0 0 12px}
+.project-news-countries li{padding:8px 12px;border:1px solid #d4dff6;border-radius:10px;background:#f0f4ff;color:#304b9b;font-size:13px;font-weight:650}
+.project-news-countries li:first-child{background:#e2f5f0;border-color:#afdcd0;color:#087565}
+.project-start-source{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#65758e}
+.project-start-source svg{width:14px;height:14px}
+@media(max-width:760px){.project-start{padding:18px}.project-start-main{grid-template-columns:1fr;gap:16px}.project-start h3{font-size:24px}.project-start p{font-size:15px}}
+.champions-channel-qr{display:flex;flex-direction:column;align-items:center;width:min(100%,300px);margin:20px auto 0;border:1px solid #dce3ef;border-radius:18px;overflow:hidden;background:#fff;color:#3559e0;text-decoration:none}
+.champions-channel-qr img{display:block;width:100%;aspect-ratio:5/6;object-fit:cover;object-position:center 48%}
+.champions-channel-qr>span{display:flex;align-items:center;gap:8px;padding:10px;font-size:14px;font-weight:700}
+.champions-channel-qr svg{width:16px;height:16px}
+.atyrau-workbook-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.atyrau-workbook-actions .action{min-height:42px;padding:10px 16px;font-size:14px}
+.atyrau-workbook{display:block;width:100%;height:max(420px,calc(100dvh - 330px));border:1px solid #dce3ef;border-radius:16px;background:#fff}
 .seminar-addition .slide-head{margin-bottom:24px}
 .seminar-addition .slide-head h2{font-size:clamp(28px,3.1vw,46px);max-width:1120px}
 .seminar-addition .subtitle{font-size:18px;margin-top:12px}
