@@ -172,7 +172,7 @@
       if(idx===18)return `${head()}${tabs([['steps',tr('Іске қосу қадамдары','Шаги активации')],['video',tr('Бейненұсқаулық','Видеоинструкция')]],'activation')}${R.activation==='video'?media('youtube','youtube13'):baseContent().replace(head(),'')}`;
     }
     let result=oldContent();
-    if(idx===11&&!window.PEDAGOG_VIDEO_OVERVIEW&&collegeSkillSelection.pedagog===4)result=result.replace(/<section class="college-skill-panel"[\s\S]*?<\/section>/,svgLessonComparison());
+    if(idx===11&&collegeSkillSelection.pedagog===4)result=result.replace(/<section class="college-skill-panel"[\s\S]*?<\/section>/,svgLessonComparison());
 
     if(idx===24)result=result.replace('<p class="champions-cta">',`<a class="champions-channel-qr" href="https://t.me/CHATGPTEDU_COLLEGES" target="_blank" rel="noopener noreferrer"><img src="seminar-assets/college-telegram-qr.png" alt="${tr('Колледж педагогтеріне арналған Telegram арнасының QR-коды','QR-код Telegram-канала для педагогов колледжей')}"><span>@CHATGPTEDU_COLLEGES ${I('link')}</span></a><p class="champions-cta">`);
     if(idx===0)result+=`<button class="jeremy-button" data-seminar="video">${I('play')}<span><strong>Jeremy Utley</strong><small>Instructor @ Stanford Online &amp; Harvard Continuing Ed</small></span></button>`;

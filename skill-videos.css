@@ -1,15 +1,8 @@
-.skill-video-gallery{background:rgba(255,255,255,.75);border:1px solid #d8deef;border-radius:24px;padding:24px}
-.skill-video-gallery>header h3{margin:0 0 6px;font-size:27px;color:#20253e}
-.skill-video-gallery>header p{margin:0 0 22px;color:#66718a;font-size:16px}
-.skill-video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.skill-video-card{margin:0;border:1px solid #e0e5f1;border-radius:18px;background:white;overflow:hidden}
-.skill-video-heading{display:flex;align-items:center;gap:10px;padding:17px 17px 0;min-height:53px}
-.skill-video-heading>span{font-size:12px;color:#7761d5;background:#f1edff;padding:6px;border-radius:7px;font-weight:750}
-.skill-video-heading h4{font-size:17px;line-height:1.25;margin:0;color:#29344c}
-.skill-video-card video{display:block;width:100%;aspect-ratio:8/5;object-fit:contain;background:#f1f3fc;margin-top:12px}
-.skill-video-card figcaption{padding:15px 17px 18px}
-.skill-video-card figcaption strong{font-size:16px;color:#008b82}
-.skill-video-card figcaption p{font-size:14px;line-height:1.5;color:#65718b;margin:7px 0 0}
-@media(min-width:1550px){.skill-video-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.skill-video-heading h4{font-size:16px}.skill-video-heading{min-height:63px;padding:14px 12px 0}.skill-video-card figcaption{padding:15px 13px}.skill-video-card figcaption p{font-size:14px}}
-@media(max-width:1000px){.skill-video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:620px){.skill-video-grid{grid-template-columns:1fr}.skill-video-gallery{padding:16px;border-radius:18px}.skill-video-gallery>header h3{font-size:23px}.skill-video-gallery>header p{font-size:14px}.skill-video-card video{max-height:240px}.slide:has(.skill-video-gallery) .college-skill-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px}.slide:has(.skill-video-gallery) .college-skill-tabs button{flex:0 0 auto}}
+.skill-with-video{display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,390px);gap:24px;align-items:center;margin-bottom:22px}
+.skill-with-video .college-skill-description{margin-bottom:0}
+.skill-inline-video{margin:0;border:1px solid #dfe4f1;border-radius:16px;overflow:hidden;background:#f6f8ff}
+.skill-inline-video video{display:block;width:100%;aspect-ratio:8/5;object-fit:contain;background:#f1f3fc}
+.skill-inline-video figcaption{padding:12px 15px}
+.skill-inline-video figcaption strong{display:block;font-size:15px;color:#008b82}
+.skill-inline-video figcaption span{display:block;font-size:13px;line-height:1.45;color:#65718b;margin-top:5px}
+@media(max-width:760px){.skill-with-video{grid-template-columns:1fr;gap:16px}.skill-inline-video{width:100%;max-width:420px;justify-self:center}}
