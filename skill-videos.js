@@ -13,6 +13,11 @@
     const original=originalSkillView(plugin);
     if(plugin!=='pedagog')return original;
     const skill=COLLEGE_SKILL_DATA.pedagog[collegeSkillSelection.pedagog][0];
+    if(skill==='ai-object-lab'){
+      const tr=(kk,ru)=>lang==='kz'?kk:ru;
+      const model=`<section class="skill-water-demo"><header><span>${tr('3D-модель','3D-модель')}</span><h3>${tr('Су молекуласын барлық жағынан қарау','Рассмотреть молекулу воды со всех сторон')}</h3></header><iframe src="seminar-assets/water-model-3d.html?lang=${lang}" title="${tr('Су молекуласының 3D-моделі','3D-модель молекулы воды')}"></iframe><p>${tr('Бір оттек, екі сутек: көлемді модель айналып, атомдар мен байланыстардың орналасуын көрсетеді.','Один атом кислорода и два атома водорода: модель вращается, показывая расположение атомов и связей.')}</p></section>`;
+      return original.replace(/<section class="college-skill-panel"[\s\S]*?<\/section>/,model);
+    }
     const item=videos[skill];
     if(!item)return original;
     const k=lang==='kz'?0:1;
