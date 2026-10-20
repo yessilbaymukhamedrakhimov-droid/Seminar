@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="680" viewBox="0 0 1400 680" role="img" aria-labelledby="title desc">
+<title id="title">Режимы ChatGPT и выбор модели</title><desc id="desc">Векторная реконструкция предоставленного скриншота. Анимация показывает переключение Чат — Работа, затем раскрытие списка моделей и выбор GPT-6 Astra.</desc>
+<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="5" stdDeviation="9" flood-color="#23304a" flood-opacity=".09"/></filter></defs>
+<style>
+text{font-family:Arial,sans-serif;fill:#252629} .muted{fill:#939597}.small{font-size:16px}.body{font-size:19px}.label{font-size:21px;font-weight:600}
+.chat-active{animation:chat 12s infinite}.work-active{animation:work 12s infinite}.menu{animation:menu 12s infinite}.mode-ring{animation:modeRing 12s infinite}.model-ring{animation:modelRing 12s infinite}.cursor{animation:cursor 12s infinite}.check-sol{animation:sol 12s infinite}.check-astra,.astra-label{animation:astra 12s infinite}.sol-label{animation:sol 12s infinite}.row-astra{animation:astraHighlight 12s infinite}.step-one{animation:step1 12s infinite}.step-two{animation:step2 12s infinite}.step-three{animation:step3 12s infinite}
+@keyframes chat{0%,21%{opacity:1}26%,100%{opacity:0}}@keyframes work{0%,21%{opacity:0}26%,100%{opacity:1}}@keyframes menu{0%,39%{opacity:0;transform:translateY(7px)}44%,82%{opacity:1;transform:none}87%,100%{opacity:0}}
+@keyframes modeRing{0%,3%{opacity:0}7%,25%{opacity:1}31%,100%{opacity:0}}@keyframes modelRing{0%,31%{opacity:0}36%,42%{opacity:1}48%,100%{opacity:0}}
+@keyframes cursor{0%,4%{opacity:0;transform:translate(690px,95px)}8%,22%{opacity:1;transform:translate(867px,84px)}30%{opacity:1;transform:translate(1040px,410px)}40%{opacity:1;transform:translate(1058px,430px)}50%,60%{opacity:1;transform:translate(1080px,252px)}68%,84%{opacity:1;transform:translate(1080px,254px)}90%,100%{opacity:0;transform:translate(1140px,410px)}}
+@keyframes sol{0%,62%{opacity:1}67%,100%{opacity:0}}@keyframes astra{0%,62%{opacity:0}67%,100%{opacity:1}}@keyframes astraHighlight{0%,57%{opacity:0}61%,80%{opacity:1}85%,100%{opacity:0}}
+@keyframes step1{0%,29%{opacity:1}33%,100%{opacity:0}}@keyframes step2{0%,31%{opacity:0}35%,59%{opacity:1}64%,100%{opacity:0}}@keyframes step3{0%,62%{opacity:0}67%,100%{opacity:1}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.chat-active,.cursor,.mode-ring,.model-ring,.check-sol,.sol-label,.step-one,.step-two{opacity:0}.work-active,.menu,.check-astra,.astra-label,.row-astra,.step-three{opacity:1}}
+</style>
+<rect width="1400" height="680" rx="20" fill="#fcfcfc"/><path d="M260 0V605" stroke="#e1e1e1"/><path d="M0 605H1400" stroke="#e2e7ef"/>
+<rect x="0" y="0" width="260" height="604" fill="#fafafa"/>
+<text x="32" y="54" class="label">ChatGPT</text><circle cx="209" cy="46" r="8" fill="none" stroke="#949697" stroke-width="2"/><path d="m215 52 6 6" stroke="#949697" stroke-width="2"/>
+<rect x="31" y="91" width="16" height="17" rx="3" fill="none" stroke="#454748" stroke-width="2"/><path d="m37 101 12-13" stroke="#454748" stroke-width="2"/><text x="61" y="107" class="body">Новый чат</text>
+<text x="31" y="163" class="small muted" font-weight="600">Проекты</text><text x="31" y="204" class="small" opacity=".3">Нет проектов</text>
+<text x="31" y="273" class="small muted" font-weight="600">Недавние</text><text x="31" y="313" class="small">Материалы к занятию</text>
+<rect x="635" y="28" width="280" height="46" rx="23" fill="#f0f0f0"/>
+<rect class="chat-active" x="636" y="29" width="140" height="44" rx="22" fill="white" stroke="#dedede"/>
+<rect class="work-active" x="775" y="29" width="139" height="44" rx="22" fill="white" stroke="#dedede"/>
+<text x="705" y="57" text-anchor="middle" class="body">Чат</text><text x="845" y="57" text-anchor="middle" class="body">Работа</text>
+<rect class="mode-ring" x="626" y="19" width="298" height="64" rx="30" fill="none" stroke="#3569ed" stroke-width="3"/>
+<text class="chat-active" x="820" y="237" text-anchor="middle" font-size="31">Чем могу помочь?</text>
+<text class="work-active" x="820" y="237" text-anchor="middle" font-size="31">Над чем поработаем?</text>
+<g filter="url(#shadow)"><rect x="375" y="292" width="890" height="173" rx="30" fill="white" stroke="#e5e5e5"/></g>
+<text class="chat-active muted body" x="398" y="337">Спросите что-нибудь</text><text class="work-active muted body" x="398" y="337">Работайте с ChatGPT</text>
+<path d="M400 430h20m-10-10v20" stroke="#252629" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="966" y="408" width="212" height="40" rx="20" fill="#f0f0f0"/>
+<text class="sol-label small" x="980" y="434">GPT-6 Sol</text><text class="astra-label small" x="978" y="434">GPT-6 Astra</text>
+<text class="muted" x="1084" y="434" font-size="14">Среднее</text><path d="m1159 425 6 6 6-6" stroke="#949697" fill="none" stroke-width="2"/>
+<rect class="model-ring" x="958" y="400" width="228" height="56" rx="28" fill="none" stroke="#3569ed" stroke-width="3"/>
+<rect x="1193" y="416" width="8" height="15" rx="4" fill="none" stroke="#303334" stroke-width="2"/><path d="M1189 425q0 13 16 0m-8 9v7" fill="none" stroke="#303334" stroke-width="2"/>
+<circle cx="1235" cy="427" r="21" fill="#3980f4"/><path d="M1226 423v8m5-14v19m5-23v26m5-20v15m5-10v5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<g class="work-active"><rect x="392" y="466" width="855" height="49" rx="15" fill="#f0f0f0"/><text x="411" y="497" class="small muted">▱ Выбрать проект</text><text x="600" y="497" class="small muted">▤ Файлы</text><text x="731" y="497" class="small muted">◉ Плагины</text><text x="971" y="497" class="small muted">▣ Приложение для ПК</text></g>
+<g class="menu"><rect x="950" y="86" width="330" height="316" rx="18" fill="white" stroke="#e8e8e8" filter="url(#shadow)"/><text x="969" y="116" class="small muted">Выбрать модель</text><text x="969" y="153" class="body">По умолчанию</text><text x="969" y="175" font-size="14" class="muted">Рекомендуемый набор моделей</text>
+<rect class="row-astra" x="960" y="235" width="302" height="39" rx="8" fill="#eaf1ff"/>
+<text x="970" y="220" class="body">GPT-6.1 Sol</text><text x="970" y="262" class="body">GPT-6 Astra</text><text x="970" y="304" class="body">GPT-6 Sol</text><text x="970" y="346" class="body">GPT-6 Luna</text><text x="970" y="386" class="body">GPT-5.6 Sol</text>
+<text class="check-sol" x="1236" y="305" font-size="23">✓</text><text class="check-astra" x="1236" y="263" font-size="23" fill="#3569ed">✓</text><rect x="1270" y="109" width="5" height="263" rx="2.5" fill="#bcbcbc"/></g>
+<g class="cursor"><path d="M0 0v29l8-8 7 16 6-3-7-15 12-1Z" fill="#253758" stroke="white" stroke-width="2"/><circle cx="5" cy="6" r="17" fill="none" stroke="#3569ed" stroke-width="2" opacity=".55"/></g>
+<g font-size="23" font-weight="600" fill="#315cb3"><text class="step-one" x="700" y="647" text-anchor="middle">1 · Выбираем режим: Чат или Работа</text><text class="step-two" x="700" y="647" text-anchor="middle">2 · Открываем список моделей</text><text class="step-three" x="700" y="647" text-anchor="middle">3 · Выбираем модель внутри режима</text></g>
+</svg>
