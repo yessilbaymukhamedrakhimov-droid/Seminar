@@ -19,8 +19,8 @@
   const extraIds=new Set(Object.values(ids).filter(x=>x!==ids.regions));
   const originalChapters=CHAPTERS.map(c=>({...c,slides:[...c.slides]}));
   // Omit the selected introduction, research, ideas, activity and feedback slides.
-  const removedSlides=new Set([25,26,27,29,31,33,34]);
-  const removedSlideTargets={25:7,26:7,27:7,29:11,31:18,33:22,34:22};
+  const removedSlides=new Set([25,27,29,31,33,34]);
+  const removedSlideTargets={25:7,27:7,29:11,31:18,33:22,34:22};
   for(const [id,target] of Object.entries(REDIRECT)){
     if(removedSlides.has(target))REDIRECT[id]=removedSlideTargets[target];
   }
@@ -66,7 +66,7 @@
   function rebuild(){
     const next=originalChapters.map(c=>({...c,slides:[...c.slides]}));
     const tools=next.find(c=>c.slides.includes(7));
-    tools.slides.unshift(ids.regions,...(enabled()?[ids.meet,ids.shift]:[]));
+    tools.slides.unshift(ids.meet,...(enabled()?[ids.shift]:[]));
     if(enabled()){
       next.find(c=>c.slides.includes(11)).slides.unshift(ids.research);
       next.find(c=>c.slides.includes(24)).slides.push(ids.challenge,ids.ideas);
@@ -152,6 +152,7 @@
   }
 
   content=function(){
+    if(idx===ids.meet)return qrSlide('meet-curipod','https://curipod.com/0748f247-656b-5570-98bf-f46494e47fdc/lessons/c6a88a02-8254-43cf-8fcb-72097f3ec6f6/edit',tr('Танысуды бастау','Начать знакомство'));
     if(idx===7&&R.mode==='usage')return head()+modesTabs()+usageCultureView();
     if(idx===ids.regions&&['atyrau','kostanay','aktobe','almaty-region','east'].includes(selected)&&!showRegionChoices){
       const workbook=selected==='east'?'https://onedrive.live.com/:x:/g/personal/7439eb7ce95bb850/IQAbjhe_ZRl8TLLZC5g7RIEdAeerECeMXyL848agiUiYizU':selected==='almaty-region'?'https://onedrive.live.com/:x:/g/personal/7439eb7ce95bb850/IQCW2jtwjbUjT7bAJOk37Zn6ATTF1W3s1SQPmM4F5886YeQ':selected==='aktobe'?'https://onedrive.live.com/:x:/g/personal/7439eb7ce95bb850/IQDtb0Y-l7RaRoK5s5NlVsGTAd1M9R-KueMYhoRgZW6IfLE':selected==='kostanay'?'https://onedrive.live.com/:x:/g/personal/7439EB7CE95BB850/IQCUBpc0OTlZSKbw85SePdUCAWRuQkxpGqcDglbihQOvSzE':'https://onedrive.live.com/:x:/g/personal/7439eb7ce95bb850/IQD3Az2fXryfQr5NAssvPvnKAfcTaHvH8H5vULIJNPSpOf8';
@@ -160,7 +161,6 @@
     }
     if(idx===ids.regions)return `${head()}<div class="region-grid">${regions.map((r,j)=>`<button class="region-choice" data-region="${r[0]}" aria-pressed="${selected===r[0]}"><span class="region-number">${String(j+1).padStart(2,'0')}</span><span>${E(regionName(r[0]))}</span>${selected===r[0]?I('check'):I('arrow')}</button>`).join('')}</div>`;
     if(enabled()){
-      if(idx===ids.meet)return activityView('meet');
       if(idx===ids.shift)return shiftView();
       if(idx===7&&R.mode==='tasks')return head()+modesTabs()+tasksView();
       if(idx===ids.research)return `${head()}<article class="research-showcase"><div class="research-emblem" aria-hidden="true">${I('work')}<span>Research<br>Atlas</span></div><div><span class="soft-label">${tr('Менің зерттеу тәжірибем','Моя исследовательская практика')}</span><h3>AI · Research Atlas</h3><p>${tr('Зерттеу материалдарын жүйелеу және ғылыми мақала дайындау барысында AI қолданған жеке жұмысымды көрсетемін.','Покажу свою работу с AI: как я систематизировала исследовательские материалы и готовила научную статью.')}</p>${link(tr('Зерттеу сайтын ашу','Открыть исследовательский сайт'),'https://nazym-research-atlas.lemony-vale-1204.chatgpt.site/')}<p class="input-note">${tr('Сайт жаңа қойындыда ашылады. ChatGPT арқылы кіру қажет болуы мүмкін.','Сайт откроется в новой вкладке. Может потребоваться вход через ChatGPT.')}</p></div></article>`;
