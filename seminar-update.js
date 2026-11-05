@@ -15,7 +15,7 @@
     ['north','Солтүстік Қазақстан облысы','Северо-Казахстанская область'],['turkestan','Түркістан облысы','Туркестанская область']
   ];
   const enhanced=new Set(['west','karaganda','kyzylorda','mangystau','abai','zhetysu','ulytau','pavlodar','north','turkestan']);
-  const ids={regions:25,meet:26,shift:27,tasks:28,research:29,challenge:30,ideas:31,support:32,data:33,feedback:34};
+  const ids={regions:25,meet:26,shift:27,tasks:28,research:29,challenge:30,ideas:31,support:32,data:33,feedback:34,wifi:35};
   const extraIds=new Set(Object.values(ids).filter(x=>x!==ids.regions));
   const originalChapters=CHAPTERS.map(c=>({...c,slides:[...c.slides]}));
   // Omit the selected introduction, research, ideas, activity and feedback slides.
@@ -34,6 +34,7 @@
   let dataRegion=['turkestan','kyzylorda'].includes(selected)?selected:'turkestan';
   let search='',inactiveOnly=false;
   const titles={
+    35:['Wi-Fi: роутерге ең жақсы орынды табыңыз','Wi-Fi: найдите лучшее место для роутера'],
     25:['Өңіріңізді таңдаңыз','Выберите свой регион'],
     26:['Жақынырақ танысайық!','Давайте познакомимся поближе!'],
     27:['ЖИ-мен жұмыс: назар неге ауысады?','Как меняется наша работа с AI'],
@@ -46,6 +47,7 @@
     34:['Кері байланыс','Обратная связь']
   };
   const subtitles={
+    35:['Роутерді жылжытыңыз, қабырға материалын өзгертіңіз және қамтуды салыстырыңыз.','Перемещайте роутер, меняйте материал стен и сравнивайте покрытие.'],
     25:['Семинарды жалғастыру үшін облысты немесе қаланы таңдаңыз.','Выберите область или город, чтобы продолжить семинар.'],
     26:['ChatGPT пайдалану тәжірибелеріңізбен бөлісіңіздер.','Поделитесь своим опытом использования ChatGPT.'],
     27:['Негізгі назар — AI жауабын тексеру, түсіну және жетілдіру.','В центре внимания — проверка, осмысление и доработка ответа AI.'],
@@ -72,6 +74,8 @@
       next.find(c=>c.slides.includes(24)).slides.push(ids.challenge,ids.ideas);
       const last=next.find(c=>c.slides.includes(22));last.slides.splice(last.slides.indexOf(22),0,ids.support,ids.data,ids.feedback);
     }
+    const practice=next.find(c=>c.slides.includes(13));
+    practice.slides.splice(practice.slides.indexOf(13)+1,0,ids.wifi);
     for(const chapter of next)chapter.slides=chapter.slides.filter(id=>!removedSlides.has(id));
     CHAPTERS.splice(0,CHAPTERS.length,...next.filter(chapter=>chapter.slides.length));FLOW.splice(0,FLOW.length,...CHAPTERS.flatMap(c=>c.slides));
     if(!enabled()&&R.mode==='tasks')R.mode='modes';
@@ -152,6 +156,8 @@
   }
 
   content=function(){
+    if(idx===ids.wifi)return `${head()}<section class="research-showcase"><div class="research-emblem" aria-hidden="true">${I('work')}<span>Wi-Fi<br>3D</span></div><div><span class="soft-label">${tr('ИНТЕРАКТИВТІ ТАПСЫРМА','ИНТЕРАКТИВНОЕ ЗАДАНИЕ')}</span><h3>${tr('Роутер үшін ең жақсы орынды табыңыз','Найдите лучшее место для роутера')}</h3><p>${tr('Алдымен болжам жасаңыз. Роутерді жылжытып, қабырғаларды өзгертіңіз. Қамтуды салыстырып, шешіміңізді бағалаңыз.','Сначала сделайте прогноз. Переместите роутер и измените материал стен. Сравните покрытие и оцените своё решение.')}</p>${link(tr('3D-симуляторды ашу','Открыть 3D-симулятор'),'wifi/')}<p class="input-note">${tr('Орыс тіліндегі симулятор жаңа қойындыда ашылады. Қамту есебі жеңілдетілген және демонстрациялық.','Симулятор на русском языке откроется в новой вкладке. Расчёт покрытия упрощённый и демонстрационный.')}</p></div></section>`;
+
     if(idx===ids.meet)return qrSlide('meet-curipod','https://curipod.com/0748f247-656b-5570-98bf-f46494e47fdc/lessons/c6a88a02-8254-43cf-8fcb-72097f3ec6f6/edit',tr('Танысуды бастау','Начать знакомство'));
     if(idx===7&&R.mode==='usage')return head()+modesTabs()+usageCultureView();
     if(idx===ids.regions&&['atyrau','kostanay','aktobe','almaty-region','east'].includes(selected)&&!showRegionChoices){
