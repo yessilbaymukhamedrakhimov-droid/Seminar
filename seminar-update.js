@@ -15,7 +15,7 @@
     ['north','Солтүстік Қазақстан облысы','Северо-Казахстанская область'],['turkestan','Түркістан облысы','Туркестанская область']
   ];
   const enhanced=new Set(['west','karaganda','kyzylorda','mangystau','abai','zhetysu','ulytau','pavlodar','north','turkestan']);
-  const ids={regions:25,meet:26,shift:27,tasks:28,research:29,challenge:30,ideas:31,support:32,data:33,feedback:34,wifi:35};
+  const ids={regions:25,meet:26,shift:27,tasks:28,research:29,challenge:30,ideas:31,support:32,data:33,feedback:34,wifi:35,actions:36};
   const extraIds=new Set(Object.values(ids).filter(x=>x!==ids.regions));
   const originalChapters=CHAPTERS.map(c=>({...c,slides:[...c.slides]}));
   // Omit the selected introduction, research, ideas, activity and feedback slides.
@@ -34,6 +34,7 @@
   let dataRegion=['turkestan','kyzylorda'].includes(selected)?selected:'turkestan';
   let search='',inactiveOnly=false;
   const titles={
+    36:['Сіздің келесі қадамдарыңыз','Ваши дальнейшие действия'],
     35:['Жағдаят: үйдегі Wi-Fi нашар жұмыс істейді','Ситуация: дома плохо работает Wi-Fi'],
     25:['Өңіріңізді таңдаңыз','Выберите свой регион'],
     26:['Жақынырақ танысайық!','Давайте познакомимся поближе!'],
@@ -47,6 +48,7 @@
     34:['Кері байланыс','Обратная связь']
   };
   const subtitles={
+    36:['',''],
     35:['Тегін ChatGPT — 1 минут','Бесплатный ChatGPT — 1 минута'],
     25:['Семинарды жалғастыру үшін облысты немесе қаланы таңдаңыз.','Выберите область или город, чтобы продолжить семинар.'],
     26:['ChatGPT пайдалану тәжірибелеріңізбен бөлісіңіздер.','Поделитесь своим опытом использования ChatGPT.'],
@@ -74,6 +76,8 @@
       next.find(c=>c.slides.includes(24)).slides.push(ids.challenge,ids.ideas);
       const last=next.find(c=>c.slides.includes(22));last.slides.splice(last.slides.indexOf(22),0,ids.support,ids.data,ids.feedback);
     }
+    const challenge=next.find(c=>c.slides.includes(24));
+    challenge.slides.splice(challenge.slides.indexOf(24)+1,0,ids.actions);
     const practice=next.find(c=>c.slides.includes(13));
     practice.slides.splice(practice.slides.indexOf(13)+1,0,ids.wifi);
     for(const chapter of next)chapter.slides=chapter.slides.filter(id=>!removedSlides.has(id));
@@ -156,6 +160,8 @@
   }
 
   content=function(){
+    if(idx===ids.actions)return `<div class="next-actions-layout"><div><div class="next-actions-kicker">${tr('СЕМИНАРДАН — ТӘЖІРИБЕГЕ','ОТ СЕМИНАРА — К ПРАКТИКЕ')}</div><h2 class="next-actions-title">${tr('Сіздің келесі<br>қадамдарыңыз','Ваши дальнейшие<br>действия')}</h2></div><div class="next-actions-cards">${[[tr('Лицензия алу','Получение лицензии'),'check'],[tr('Алған біліммен бөлісу','Поделиться полученными знаниями'),'chat'],[tr('Сабақта қолданып көру','Попробовать на уроке'),'spark']].map(([text,icon],i)=>`<article class="next-actions-card"><div class="next-actions-card-top"><span class="next-actions-icon">${I(icon)}</span><span class="next-actions-number">0${i+1}</span></div><h3>${text}</h3></article>`).join('')}</div></div>`;
+
     if(idx===ids.wifi)return `${head()}<div style="display:grid;gap:24px;max-width:1150px"><article style="padding:28px 32px;border:1px solid #e2d9fa;border-radius:22px;background:#fff"><span class="soft-label">${tr('ЖАҒДАЯТ','СИТУАЦИЯ')}</span><p style="font-size:clamp(22px,2.1vw,32px);margin-top:14px">${tr('Пәтерде бірнеше бөлме бар. Роутер дәлізде тұр: қонақ бөлмеде Wi-Fi жақсы, ал жатын бөлме мен жұмыс бөлмесінде бейнебайланыс үзіліп қалады. Қабырғалар әртүрлі материалдан жасалған. Роутерді қайда қойған дұрыс?','В квартире несколько комнат. Роутер стоит в прихожей: в гостиной Wi-Fi хороший, а в спальне и кабинете видеосвязь прерывается. Между комнатами — стены из разных материалов. Где лучше поставить роутер?')}</p></article></div>`;
 
     if(idx===ids.meet)return qrSlide('meet-curipod','https://curipod.com/0748f247-656b-5570-98bf-f46494e47fdc/lessons/c6a88a02-8254-43cf-8fcb-72097f3ec6f6/edit',tr('Танысуды бастау','Начать знакомство'));
@@ -192,6 +198,7 @@
     oldRender();
     document.body.classList.toggle('seminar-enhanced',enabled());
     const slide=document.querySelector('#stage .slide');
+    if(idx===ids.actions)slide.classList.add('next-actions-slide');
     if(extraIds.has(idx)||idx===ids.regions)slide.classList.add('seminar-addition',`seminar-page-${idx}`);
     if(selected&&idx!==0&&idx!==ids.regions){
       const status=document.createElement('button');status.className='region-current';status.dataset.seminar='change-region';status.innerHTML=`${E(regionName())}<span>${tr('Өңірді өзгерту','Сменить регион')}</span>`;
