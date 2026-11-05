@@ -19,8 +19,8 @@
   const extraIds=new Set(Object.values(ids).filter(x=>x!==ids.regions));
   const originalChapters=CHAPTERS.map(c=>({...c,slides:[...c.slides]}));
   // Omit the selected introduction, research, ideas, activity and feedback slides.
-  const removedSlides=new Set([26,27,29,31,33,34]);
-  const removedSlideTargets={26:7,27:7,29:11,31:18,33:22,34:22};
+  const removedSlides=new Set([25,26,27,29,31,33,34]);
+  const removedSlideTargets={25:7,26:7,27:7,29:11,31:18,33:22,34:22};
   for(const [id,target] of Object.entries(REDIRECT)){
     if(removedSlides.has(target))REDIRECT[id]=removedSlideTargets[target];
   }
@@ -82,7 +82,6 @@
     if(n===ids.tasks){R.mode=enabled()?'tasks':'modes';n=7;}
     if(!FLOW.includes(n))n=REDIRECT[n]??0;
     if(!FLOW.includes(n))n=0;
-    if(!selected&&FLOW.indexOf(n)>FLOW.indexOf(ids.regions))return ids.regions;
     return n;
   }
   parseHash=function(){const m=location.hash.match(/^#(kz|ru|en)\/(\d+)$/);if(m){lang=m[1]==='en'?'ru':m[1];idx=allowed(Number(m[2])-1);}};
