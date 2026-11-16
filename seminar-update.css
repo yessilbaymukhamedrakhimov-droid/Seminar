@@ -128,3 +128,5 @@
 .practicum-pending{min-height:370px;align-content:center;text-align:center;background:#f5f7f4;gap:18px}.practicum-pending-icon{width:140px;height:140px;display:grid;place-items:center;background:#203c3c;color:#f6be66;border-radius:32px;font-size:100px;font-family:Arial,sans-serif}.practicum-pending>span{max-width:270px;line-height:1.7}
 
 .practicum-remix{margin-top:22px;border-top:1px solid #dfe2ef;padding-top:18px;font-size:16px;line-height:1.55}.practicum-remix summary{cursor:pointer;color:#3f21ff;font-weight:700}.practicum-remix blockquote{margin:14px 0;padding:14px 18px;border-left:3px solid #3f21ff;background:#f4f5fe;border-radius:0 12px 12px 0}.practicum-remix p{font-size:14px;color:#455570}
+
+.practicum-admin{max-width:1000px;margin:42px auto 0;padding:clamp(24px,3.2vw,46px);border:1px solid #dfe2ef;border-radius:26px;background:#fff;box-shadow:0 18px 50px #24343e0c}.practicum-admin .practicum-task h3{margin-top:14px}.practicum-admin .practicum-links{margin:0 0 30px}.practicum-admin .practicum-links>a.action{font-size:18px;color:#fff}.practicum-admin .practicum-task ol{gap:24px;font-size:clamp(20px,1.8vw,25px)}
