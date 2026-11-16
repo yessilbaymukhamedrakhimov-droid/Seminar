@@ -15,12 +15,12 @@
     ['north','Солтүстік Қазақстан облысы','Северо-Казахстанская область'],['turkestan','Түркістан облысы','Туркестанская область']
   ];
   const enhanced=new Set(['west','karaganda','kyzylorda','mangystau','abai','zhetysu','ulytau','pavlodar','north','turkestan']);
-  const ids={regions:25,meet:26,shift:27,tasks:28,research:29,challenge:30,ideas:31,support:32,data:33,feedback:34,wifi:35,actions:36,wifiSite:37};
+  const ids={regions:25,meet:26,shift:27,tasks:28,research:29,challenge:30,ideas:31,support:32,data:33,feedback:34,wifi:35,actions:36,wifiSite:37,pluginLocation:38,skillExamples:39,practicum:40};
   const extraIds=new Set(Object.values(ids).filter(x=>x!==ids.regions));
   const originalChapters=CHAPTERS.map(c=>({...c,slides:[...c.slides]}));
   // Omit the selected introduction, research, ideas, activity and feedback slides.
-  const removedSlides=new Set([3,15,18,25,27,29,31,33,34]);
-  const removedSlideTargets={3:4,15:24,18:22,25:7,27:7,29:11,31:22,33:22,34:22};
+  const removedSlides=new Set([2,3,15,18,24,25,27,29,31,33,34,35,36,37]);
+  const removedSlideTargets={35:22,37:22,24:22,36:22,2:4,3:4,15:24,18:22,25:7,27:7,29:11,31:22,33:22,34:22};
   for(const [id,target] of Object.entries(REDIRECT)){
     if(removedSlides.has(target))REDIRECT[id]=removedSlideTargets[target];
   }
@@ -34,11 +34,14 @@
   let dataRegion=['turkestan','kyzylorda'].includes(selected)?selected:'turkestan';
   let search='',inactiveOnly=false;
   const titles={
+    40:['Практикум: «Эвакуация»','Практикум: «Эвакуация»'],
+    39:['Pedagog BilimAI College: жұмыс мысалы','Pedagog BilimAI College: пример работы'],
+    38:['Плагиндерді қайдан табуға болады','Где найти плагины'],
     37:['Wi-Fi: интерактивті пәтер зертханасы','Wi-Fi: интерактивная лаборатория квартиры'],
     36:['Сіздің келесі қадамдарыңыз','Ваши дальнейшие действия'],
     35:['Жағдаят: үйдегі Wi-Fi нашар жұмыс істейді','Ситуация: дома плохо работает Wi-Fi'],
     25:['Өңіріңізді таңдаңыз','Выберите свой регион'],
-    26:['Жақынырақ танысайық!','Давайте познакомимся поближе!'],
+    26:['ChatGPT пайдалану тәжірибелеріңізбен бөлісіңіздер','Поделитесь своим опытом использования ChatGPT'],
     27:['ЖИ-мен жұмыс: назар неге ауысады?','Как меняется наша работа с AI'],
     28:['Кесте бойынша тапсырмалар','Задачи по расписанию'],
     29:['Жеке тәжірибе: зерттеу және AI','Личный опыт: исследование и AI'],
@@ -49,11 +52,14 @@
     34:['Кері байланыс','Обратная связь']
   };
   const subtitles={
+    40:['Pedagog BilimAI College · «Жағдаяттық симуляторлар» дағдысы. Педагог пен топ: жеке оқу сценарийі.','Pedagog BilimAI College · Навык «Ситуационные симуляторы». Педагог с группой: индивидуальный учебный сценарий.'],
+    39:['Дағдылар: «3D-модельдер» + «Тренажёрлер». Мысал — «Ғимарат инспекторы».','Навыки: «3D-модели» + «Тренажёры». Пример — «Инспектор здания».'],
+    38:['Жұмыс → Плагиндер → ChatGPT Edu — Colleges → көмекшіні таңдаңыз.','Откройте «Плагины» под полем запроса или через значок слева → ChatGPT Edu — Colleges → выберите помощника.'],
     37:['QR-кодты сканерлеңіз немесе сайтты ашыңыз.','Отсканируйте QR-код или откройте сайт.'],
     36:['',''],
     35:['Тегін ChatGPT — 1 минут','Бесплатный ChatGPT — 1 минута'],
     25:['Семинарды жалғастыру үшін облысты немесе қаланы таңдаңыз.','Выберите область или город, чтобы продолжить семинар.'],
-    26:['ChatGPT пайдалану тәжірибелеріңізбен бөлісіңіздер.','Поделитесь своим опытом использования ChatGPT.'],
+    26:['',''],
     27:['Негізгі назар — AI жауабын тексеру, түсіну және жетілдіру.','В центре внимания — проверка, осмысление и доработка ответа AI.'],
     28:['Тапсырманы бір рет сипаттаңыз және оның орындалу уақытын белгілеңіз.','Опишите задачу и задайте время её выполнения.'],
     29:['Ғылыми мақалаға арналған зерттеуде AI қолдану тәжірибесі.','Опыт использования AI в исследовании для научной статьи.'],
@@ -80,8 +86,12 @@
     }
     const challenge=next.find(c=>c.slides.includes(24));
     challenge.slides.splice(challenge.slides.indexOf(24)+1,0,ids.actions);
+    const pluginsChapter=next.find(c=>c.slides.includes(10));
+    pluginsChapter.slides.splice(pluginsChapter.slides.indexOf(10)+1,0,ids.pluginLocation);
     const practice=next.find(c=>c.slides.includes(13));
     practice.slides.splice(practice.slides.indexOf(13)+1,0,ids.wifi,ids.wifiSite);
+    const exampleChapter=next.find(c=>c.slides.includes(13));
+    exampleChapter.slides.splice(exampleChapter.slides.indexOf(13)+1,0,ids.skillExamples,ids.practicum);
     for(const chapter of next)chapter.slides=chapter.slides.filter(id=>!removedSlides.has(id));
     CHAPTERS.splice(0,CHAPTERS.length,...next.filter(chapter=>chapter.slides.length));FLOW.splice(0,FLOW.length,...CHAPTERS.flatMap(c=>c.slides));
     if(!enabled()&&R.mode==='tasks')R.mode='modes';
@@ -110,7 +120,7 @@
     }[kind];
     return `${head()}<section class="activity-card activity-${kind}"><div class="activity-copy"><span class="activity-icon">${I(config.icon)}</span><h3>${config.lead}</h3><p>${config.body}</p>${link(config.label,config.url,'action activity-open')}</div><div class="activity-topics" aria-hidden="true"><span class="activity-orbit"></span>${config.items.map((x,i)=>`<div class="activity-topic"><span>0${i+1}</span>${E(x)}</div>`).join('')}</div></section>`;
   }
-  function modesTabs(){return tabs([['modes','Chat / Work / Codex'],...(enabled()?[['tasks',tr('Кесте бойынша тапсырма','Задачи по расписанию')]]:[]),['power',tr('Қуатты таңдау','Выбор мощности')],['usage',tr('Лимиттер және қолдану мәдениеті','Лимиты и культура использования')],['astra',tr('Astra: жоба мысалдары','Astra: примеры проектов')]],'mode');}
+  function modesTabs(){return tabs([['modes','Chat / Work / Codex'],...(enabled()?[['tasks',tr('Кесте бойынша тапсырма','Задачи по расписанию')]]:[]),['power',tr('Қуатты таңдау','Выбор мощностей/моделей')],['usage',tr('Лимиттер және қолдану мәдениеті','Лимиты и культура использования')],['astra',tr('Astra: жоба мысалдары','Astra: примеры проектов')]],'mode');}
   function usageCultureView(){
     const rules=[
       [tr('Нақты тапсырма','Конкретная задача'),tr('Мақсат, аудитория, пішім.','Цель, аудитория, формат.')],
@@ -162,6 +172,11 @@
   }
 
   content=function(){
+    if(idx===ids.practicum)return `${head()}<div class="practicum-invite"><div class="practicum-qr"><img src="seminar-assets/neighbour-practicum-qr.svg" alt="QR-код индивидуального практикума"><strong>${tr('Телефонмен ашыңыз','Откройте с телефона')}</strong><span>${tr('Қатысушыға тіркелу қажет емес. Бөлме кодын жүргізушіден алыңыз.','Участнику регистрация не нужна. Код комнаты получите у ведущего.')}</span></div><div class="practicum-task"><span class="soft-label">${tr('ӨЗІҢІЗ БАЙҚАП КӨРІҢІЗ','ПОПРОБУЙТЕ САМИ')}</span><h3>${tr('Топты ғимараттан<br>қалай эвакуациялайсыз?','Эвакуация из здания:<br>педагог с группой')}</h3><ol><li>${tr('Бөлме кодын және атыңызды енгізіңіз. Өз бетіңізше бастаңыз.','Введите код комнаты и имя. Начните самостоятельно.')}</li><li>${tr('Берілген уақытта жағдайды бағалап, жоспардан маршрутты таңдаңыз.','Успейте оценить обстановку и выбрать маршрут на плане. Сохраните группу вместе.')}</li></ol><div class="practicum-links">${link(tr('Әкімші кабинеті','Кабинет админа'),'https://neighbour-dialogue-practicum.chatgpt-edu-3017.chatgpt.site/?teacher=1')}</div><p>${tr('Практикум орыс тілінде. Pedagog BilimAI College · Ситуациялық симулятор. Шартты жоспар, сынақ режимі.','Pedagog BilimAI College · Ситуационные симуляторы. Индивидуальный таймер, условный план и юмористический разбор. Тестовый режим.')}</p><details class="practicum-remix"><summary>${tr('Өз пәніңізге осындай симулятор жасаңыз','Создайте такой симулятор для своего предмета')}</summary><p><b>Pedagog BilimAI College → ${tr('«Жағдаяттық симуляторлар»','«Ситуационные симуляторы»')}</b></p><blockquote>${tr('«[Тақырып] бойынша [топқа] жағдаяттық симулятор жаса. Таймер, салдар анимациясы және қателерді талдау болсын. Студенттер іс-шара коды мен лақап аты арқылы кірсін. Оқытушы кабинетінде әр студенттің прогресі мен нәтижесін іс-шаралар бойынша бөлек көрсет».','«Создай ситуационный симулятор по теме [тема] для [группа]. Добавь таймер, анимацию последствий и разбор ошибок. Вход студентов — по коду мероприятия и нику. В кабинете преподавателя показывай прогресс и результаты каждого, отдельно по мероприятиям».')}</blockquote><p>${tr('Нәтижелерді жинау және оқытушы кабинетін жасау — сұрауда бөлек көрсетілетін мүмкіндік.','Сбор результатов и кабинет преподавателя нужно отдельно указать в запросе и реализовать при создании.')}</p></details></div></div>`;
+    if(idx===ids.skillExamples)return `${head()}<div class="skill-example-layout"><aside class="skill-example-intro"><span class="soft-label">${tr('3D-МОДЕЛЬ + ТРЕНАЖЁР','3D-МОДЕЛЬ + ТРЕНАЖЁР')}</span><h3>${tr('Ғимарат инспекторы','Инспектор здания')}</h3><p>${tr('Ғимаратты зерттеп, ақауларды қарап, әрекет таңдаңыз.','Исследуйте здание, осмотрите дефекты и выберите действие.')}</p><ul><li>${tr('3D-модельді айналдыру және зерттеу','Вращение и изучение 3D-модели')}</li><li>${tr('Практикалық жағдайларды талдау','Разбор практических ситуаций')}</li><li>${tr('Шешім таңдау және кері байланыс','Выбор решения и обратная связь')}</li></ul><a class="action secondary" href="seminar-assets/building-inspector/index.html?v=cinematic-1" target="_blank" rel="noopener noreferrer">${tr('Толық экранда ашу','Открыть отдельно')}${I('link')}</a></aside><iframe class="skill-example-frame" src="seminar-assets/building-inspector/index.html?v=cinematic-1" title="${tr('Ғимарат инспекторы — интерактивті оқу тренажёры','Инспектор здания — интерактивный учебный тренажёр')}" allowfullscreen loading="lazy"></iframe></div>`;
+
+    if(idx===ids.pluginLocation)return `${head()}<div class="plugin-location-demo">${window.PLUGIN_LOCATION_SVG}</div><div class="plugin-location-controls"><button class="quiet-btn" data-seminar="plugin-pause">${tr('Кідірту','Пауза')}</button><button class="quiet-btn" data-seminar="plugin-replay">${tr('Қайталау','Повторить')}</button><a class="action secondary" href="https://chatgpt.com/plugins?directoryTab=workspace" target="_blank" rel="noopener noreferrer">${tr('Плагиндерді ашу','Открыть плагины')}${I('link')}</a></div>`;
+
     if(idx===ids.wifiSite)return qrSlide('wifi-site-20261106','https://wifi-apartment-lab.chatgpt-edu-9818.chatgpt.site/',tr('Wi-Fi зертханасын ашу','Открыть Wi-Fi-лабораторию'));
     if(idx===ids.actions)return `<div class="next-actions-layout"><div><div class="next-actions-kicker">${tr('СЕМИНАРДАН — ТӘЖІРИБЕГЕ','ОТ СЕМИНАРА — К ПРАКТИКЕ')}</div><h2 class="next-actions-title">${tr('Сіздің келесі<br>қадамдарыңыз','Ваши дальнейшие<br>действия')}</h2></div><div class="next-actions-cards">${[[tr('Лицензия алу','Получение лицензии'),'check'],[tr('Алған біліммен бөлісу','Поделиться полученными знаниями'),'chat'],[tr('Сабақта қолданып көру','Попробовать на занятиях'),'spark']].map(([text,icon],i)=>`<article class="next-actions-card"><div class="next-actions-card-top"><span class="next-actions-icon">${I(icon)}</span><span class="next-actions-number">0${i+1}</span></div><h3>${text}</h3></article>`).join('')}</div></div>`;
 
@@ -191,7 +206,6 @@
     if(idx===11&&collegeSkillSelection.pedagog===4)result=result.replace(/<section class="college-skill-panel"[\s\S]*?<\/section>/,svgLessonComparison());
 
     if(idx===24)result=result.replace('<p class="champions-cta">',`<a class="champions-channel-qr" href="https://t.me/CHATGPTEDU_COLLEGES" target="_blank" rel="noopener noreferrer"><img src="seminar-assets/college-telegram-qr.png" alt="${tr('Колледж педагогтеріне арналған Telegram арнасының QR-коды','QR-код Telegram-канала для педагогов колледжей')}"><span>@CHATGPTEDU_COLLEGES ${I('link')}</span></a><p class="champions-cta">`);
-    if(idx===0)result+=`<button class="jeremy-button" data-seminar="video">${I('play')}<span><strong>Jeremy Utley</strong><small>Instructor @ Stanford Online &amp; Harvard Continuing Ed</small></span></button>`;
     if(enabled()&&idx===24)result=result.replace(/(<p class="champions-cta">[\s\S]*?<\/p>)/,`$1<p class="pr-campaign">${tr('PR-кампания: белсенді қолданушыларды іздейміз','PR-кампания: ищем активных пользователей')}</p>`);
     if(idx===7)result=result.replace(/<nav class="r-tabs"[\s\S]*?<\/nav>/,modesTabs());
     return result;
@@ -206,6 +220,9 @@
     if(idx===ids.regions&&!selected)document.querySelector('#dock [data-action="next"]').disabled=true;
   };
   document.addEventListener('click',async e=>{
+    if(e.target.closest('[data-seminar="plugin-pause"]')){const demo=document.querySelector('.plugin-location-demo');const paused=demo.classList.toggle('is-paused');e.target.closest('button').textContent=paused?tr('Жалғастыру','Продолжить'):tr('Кідірту','Пауза');return;}
+    if(e.target.closest('[data-seminar="plugin-replay"]')){render();return;}
+
     const choice=e.target.closest('[data-region]');
     if(choice){
       selected=choice.dataset.region;try{localStorage.setItem('seminar-region',selected);}catch{}
