@@ -110,7 +110,7 @@
   const jump=(label,id,icon='arrow',cls='action')=>B(label,'goto',icon,cls,`data-index="${id}"`);
   const link=(label,url,cls='action')=>`<a class="${cls}" href="${E(url)}" target="_blank" rel="noopener noreferrer">${E(label)}${I('link')}</a>`;
   function qrSlide(kind,url,label){
-    return `${head()}<div class="seminar-qr-layout"><a class="seminar-qr-link" href="${E(url)}" target="_blank" rel="noopener noreferrer" aria-label="${E(label)}"><img class="seminar-qr ${['challenge','support'].includes(kind)?'branded':''}" src="seminar-assets/${kind}-qr.png" alt="${E(label)} · QR"></a><div class="seminar-qr-caption">${link(label,url,'action secondary')}<span>${E(url.replace('https://',''))}</span></div></div>`;
+    return `${head()}<div class="seminar-qr-layout"><a class="seminar-qr-link" href="${E(url)}" target="_blank" rel="noopener noreferrer" aria-label="${E(label)}"><img class="seminar-qr ${['challenge','support'].includes(kind)?'branded':''}" src="seminar-assets/${kind}-qr.png" alt="${E(label)} · QR"></a><div class="seminar-qr-caption">${link(label,url,'action secondary')}<span>${E(url.replace('https://',''))}</span></div>${kind==='meet-curipod'?`<div class="curipod-help-action"><button class="quiet-btn" data-seminar="curipod-help" aria-haspopup="dialog">${I('note')}${tr('Жүргізушіге арналған нұсқаулық','Инструкция для ведущего')}</button></div>`:''}</div>`;
   }
   function activityView(kind){
     const config={
@@ -231,6 +231,9 @@
       search='';inactiveOnly=false;showRegionChoices=false;R.activation=enabled()?'steps':'video';rebuild();go(['atyrau','kostanay','aktobe','almaty-region','east'].includes(selected)?ids.regions:enabled()?ids.meet:7);return;
     }
     const b=e.target.closest('[data-seminar]');if(!b)return;
+    if(b.dataset.seminar==='curipod-help'){
+      modal(tr('Curipod-та танысуды қалай өткізуге болады','Как провести знакомство в Curipod'),`<p class="curipod-help-intro">${tr('Бұл сілтеме төрт сұрағы бар дайын сценарийге апарады. Әр жүргізуші оны өз аккаунтына көшіруі керек.','По ссылке — готовый сценарий с четырьмя вопросами. Каждому ведущему нужно скопировать его в свой аккаунт.')}</p><ol class="curipod-instructions"><li>${tr('Curipod-та тіркеліңіз немесе аккаунтыңызға кіріңіз.','Создайте аккаунт Curipod или войдите в свой.')}</li><li>${tr('Дайын сценарийді ашып, төрт сұрақтың бәрін өз аккаунтыңызға көшіріңіз.','Откройте готовый сценарий и скопируйте все четыре вопроса в свой аккаунт.')}</li><li>${tr('Қаласаңыз, сұрақтарды өз аудиторияңызға бейімдеңіз.','При желании измените вопросы под свою аудиторию.')}</li><li>${tr('Өз көшірмеңізді іске қосып, сауалнама өткізіңіз.','Запустите свою копию и проведите опрос.')}</li></ol>${link(tr('Curipod сценарийін ашу','Открыть сценарий Curipod'),'https://curipod.com/0748f247-656b-5570-98bf-f46494e47fdc/lessons/c6a88a02-8254-43cf-8fcb-72097f3ec6f6/edit')}`);return;
+    }
     if(b.dataset.seminar==='change-region'){showRegionChoices=true;go(ids.regions);}
     if(b.dataset.seminar==='video'){
       modal('Jeremy Utley',`<video class="jeremy-player" controls playsinline preload="metadata" src="seminar-assets/jeremy-utley.mp4"></video><p class="input-note jeremy-full-video">${tr('Толық видео YouTube-та қолжетімді','Полное видео доступно на YouTube')}:<br><span>How to Master AI Powered Creativity in Just 13 Minutes | Jeremy Utley</span></p>`);
