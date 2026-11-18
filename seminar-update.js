@@ -277,3 +277,46 @@
   const m=initialHash.match(/^#(kz|ru|en)\/(\d+)$/);if(m){lang=m[1]==='en'?'ru':m[1];idx=allowed(Number(m[2])-1);}else idx=allowed(idx);
   render();
 })();
+
+/* Fit compact slides to a large presentation screen without clipping long ones. */
+(() => {
+  let pending = 0;
+  function fitSlide() {
+    pending = 0;
+    const stage = document.getElementById('stage');
+    const slide = stage?.querySelector('.slide');
+    if (!slide) return;
+    slide.style.zoom = '';
+    slide.style.minHeight = '';
+    slide.style.marginTop = '';
+    if (stage.clientWidth < 1100 || stage.clientHeight < 600 || slide.matches('.hero,.end-slide')) return;
+    const bounds = slide.getBoundingClientRect();
+    const style = getComputedStyle(slide);
+    const children = [...slide.children].filter(el => {
+      const css = getComputedStyle(el);
+      return el.getClientRects().length && css.position !== 'absolute' && css.position !== 'fixed';
+    });
+    const naturalHeight = Math.max(0, ...children.map(el => el.getBoundingClientRect().bottom - bounds.top)) + parseFloat(style.paddingBottom);
+    const availableHeight = stage.clientHeight - 8;
+    if (!naturalHeight || naturalHeight > availableHeight) return;
+    const scale = Math.max(1, Math.min(1.5, (stage.clientWidth - 40) / slide.offsetWidth, availableHeight / naturalHeight));
+    slide.style.minHeight = '0';
+    slide.style.zoom = scale.toFixed(4);
+    const remaining = stage.clientHeight - slide.getBoundingClientRect().height;
+    slide.style.marginTop = `${Math.max(0, remaining / (2 * scale))}px`;
+  }
+  function scheduleFit() {
+    cancelAnimationFrame(pending);
+    pending = requestAnimationFrame(fitSlide);
+  }
+  const previousRender = render;
+  render = function() { const result = previousRender(); scheduleFit(); return result; };
+  new ResizeObserver(scheduleFit).observe(document.getElementById('stage'));
+  document.addEventListener('fullscreenchange', scheduleFit);
+  document.addEventListener('toggle', scheduleFit, true);
+  document.getElementById('stage').addEventListener('load', scheduleFit, true);
+  document.getElementById('stage').addEventListener('animationend', event => {
+    if (event.target.matches('.slide')) scheduleFit();
+  });
+  scheduleFit();
+})();
