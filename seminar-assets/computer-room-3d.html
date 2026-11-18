@@ -26556,6 +26556,7 @@ function launch() {
     actions[event.key]();
   });
   resize();
+  auto();
   render();
   canvas.dataset.sceneReady = "true";
   new ResizeObserver(resize).observe(stage);
