@@ -157,3 +157,19 @@
 .practicum-now{font-size:23px;line-height:1.5;color:#556581;margin:16px 0 24px}
 
 .participant-invite .practicum-now{font-size:24px;max-width:1050px;margin-bottom:25px}.participant-invite .participant-steps{margin:22px 0 26px}.practicum-discuss{padding:20px 24px;background:#f0edff;border-radius:16px;color:#302064}.practicum-discuss>b{font-size:18px}.practicum-discuss>p{font-size:21px!important;color:#53617a!important;margin:8px 0 0!important;line-height:1.5}.participant-invite .participant-note{font-size:13px!important;color:#78849a!important;margin-top:16px!important}.participant-invite details .practicum-links{margin:20px 0}.participant-invite details ol{font-size:18px}@media(max-width:700px){.participant-invite .practicum-now{font-size:21px}.practicum-discuss>p{font-size:18px!important}}
+
+/* Slide 12: one prompt and a live, self-contained spatial 3D example. */
+.overview-showcase{display:grid;grid-template-columns:minmax(240px,.8fr) minmax(0,1.65fr);gap:26px;align-items:start;margin-top:24px}
+.overview-showcase-copy{min-width:0;padding:3px 0}
+.overview-showcase-copy h3{font-size:clamp(25px,2.3vw,34px);line-height:1.15;color:#21334c;letter-spacing:-.035em;margin:12px 0 14px}
+.overview-showcase-copy>p{font-size:15px;line-height:1.6;color:#637088;margin:0 0 19px}
+.overview-prompt{padding:18px 20px;border:1px solid #ccdade;border-radius:16px;background:#f1f8f7}
+.overview-prompt>span{font-size:10px;letter-spacing:.12em;font-weight:800;color:#11877c}
+.overview-prompt blockquote{margin:11px 0 0;border:0;padding:0;background:none;color:#304f59;font-size:14px;line-height:1.65}
+.overview-showcase-hint{font-size:13px;font-weight:700;color:#168275;margin:18px 0}
+.overview-showcase-links{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+.overview-showcase-links>a:last-child{font-size:12px;color:#4164bf}
+.overview-showcase-copy>.overview-showcase-note{font-size:11px;color:#7a8699;margin:18px 0 0;line-height:1.5}
+.overview-showcase-frame{display:block;width:100%;height:clamp(560px,65vh,780px);border:1px solid #ccd7e5;border-radius:20px;background:#102034;box-shadow:0 15px 45px #172d4812}
+@media(max-width:900px){.overview-showcase{grid-template-columns:1fr;gap:22px}.overview-showcase-frame{height:620px}.overview-prompt blockquote{font-size:14px}}
+@media(max-width:560px){.overview-showcase-frame{height:650px;border-radius:14px}.overview-showcase{margin-top:18px}.overview-showcase-copy h3{font-size:27px}.overview-prompt{padding:15px}}

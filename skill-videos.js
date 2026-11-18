@@ -25,7 +25,7 @@
     const item=videos[skill];
     if(!item)return original;
     const k=lang==='kz'?0:1;
-    const illustration=`<figure class="skill-inline-video"><video autoplay loop muted playsinline preload="metadata" poster="seminar-assets/skill-videos/${item[0]}.png" aria-label="${E(item[1][k]+': '+item[2][k])}"><source src="seminar-assets/skill-videos/${item[0]}.mp4" type="video/mp4"></video><figcaption><strong>${item[1][k]}</strong><span>${item[2][k]}</span></figcaption></figure>`;
+    const illustration=`<figure class="skill-inline-video"><video controls autoplay loop muted playsinline preload="metadata" poster="seminar-assets/skill-videos/${item[0]}.png" aria-label="${E(item[1][k]+': '+item[2][k])}"><source src="seminar-assets/skill-videos/${item[0]}.mp4" type="video/mp4"></video><figcaption><strong>${item[1][k]}</strong><span>${item[2][k]}</span></figcaption></figure>`;
     return original.replace(/(<h3>[\s\S]*?<\/h3><p class="college-skill-description">[\s\S]*?<\/p>)/,`<div class="skill-with-video"><div>$1</div>${illustration}</div>`);
   };
 })();

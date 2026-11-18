@@ -83,3 +83,20 @@
 @media(max-width:760px){.slide:has(.mode-text-only) .r-tabs{margin-bottom:22px}.mode-text-only .md-selection{margin:22px 0;gap:9px}.mode-text-only .mode-details{padding:28px}.mode-text-only .md-selection button{padding:16px 10px}}
 
 .mode-details[data-mode="codex"] .mode-detail-label{display:block;font-size:30px;font-weight:750;line-height:1.2;color:#293b75}@media(max-width:760px){.mode-details[data-mode="codex"] .mode-detail-label{font-size:25px}}
+
+/* Usage guidance occupies the selected illustration slot on the power tab. */
+.r-power-detail .power-usage{padding:23px 26px;background:#f2f8f6;color:#183e40;min-width:0;align-self:stretch}
+.power-usage header>.soft-label{font-size:10px;letter-spacing:.1em;color:#0b8076}
+.r-power-detail .power-usage h3{font-size:25px!important;line-height:1.15;margin:9px 0;color:#183e40!important}
+.r-power-detail .power-usage header>p{font-size:12px!important;line-height:1.5!important;color:#536f72!important;margin:0 0 17px}
+.power-usage-rules{display:grid;grid-template-columns:1fr 1fr;gap:15px 18px}
+.power-usage-rules article{display:flex;gap:8px;align-items:flex-start;min-width:0}
+.power-usage-rules article>span{font-size:10px;font-weight:800;color:#138b80;padding-top:3px}
+.r-power-detail .power-usage h4{font-size:13px;line-height:1.3;margin:0 0 4px;color:#24464a}
+.r-power-detail .power-usage-rules p{font-size:12px!important;line-height:1.45!important;margin:0;color:#586e74!important}
+.power-usage-limits{margin-top:17px;border-top:1px solid #cde2dc;padding-top:12px}
+.power-usage-limits summary{cursor:pointer;font-size:12px;font-weight:700;color:#1b7069;line-height:1.5}
+.r-power-detail .power-usage-limits>p{font-size:11px!important;color:#677a7e!important;margin:10px 0}
+.power-usage-limits img{display:block;width:100%;height:auto;background:#fff;border-radius:10px;margin-top:10px}
+@media(max-width:760px){.r-power-detail .power-usage{padding:20px}.power-usage-rules{gap:14px}.r-power-detail .power-usage h3{font-size:23px}}
+@media(max-width:420px){.power-usage-rules{grid-template-columns:1fr}}
