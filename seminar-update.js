@@ -226,6 +226,10 @@
   const oldRender=render;
   render=function(){
     oldRender();
+    const dock=document.getElementById('dock');
+    let edition=dock.querySelector('.presentation-edition');
+    if(!edition){edition=document.createElement('span');edition.className='presentation-edition';dock.append(edition);}
+    edition.innerHTML=`<span class="edition-full">${tr('Ақпарат 20.11.2026 күніне өзекті. Плагиндер мен дағдылардың мүмкіндіктері өзгеруі мүмкін.','Информация актуальна на 20.11.2026. Возможности плагинов и навыков могут меняться.')}</span><span class="edition-short">${tr('20.11.2026 · Мүмкіндіктер өзгеруі мүмкін','20.11.2026 · Возможности могут меняться')}</span>`;
     const roomFrame=document.querySelector('.overview-showcase-frame');
     if(roomFrame&&window.SEMINAR_ROOM_HTML){roomFrame.removeAttribute('src');roomFrame.srcdoc=window.SEMINAR_ROOM_HTML;}
 
