@@ -181,4 +181,7 @@
 #dock.dock{padding-bottom:18px}
 .presentation-edition{position:absolute;bottom:4px;left:16px;right:16px;text-align:center;color:#68758b;font-size:11px;line-height:14px;font-weight:400;pointer-events:none}
 .presentation-edition .edition-short{display:none}
+.slide-version-note{font-size:14px;line-height:1.5;color:#536784;margin:18px 0 0;padding:10px 14px;border-left:3px solid #3559e0;border-radius:0 8px 8px 0;background:#edf2fa;max-width:1100px;font-weight:400;letter-spacing:normal}
+.hero .slide-version-note,.end-slide .slide-version-note{color:#e5ddf5;background:#ffffff0d;border-left-color:#b69bff;margin:0 0 24px}
+@media(max-width:760px){.slide-version-note{font-size:12px;padding:9px 11px}}
 @media(max-width:800px){.presentation-edition{font-size:10px}.presentation-edition .edition-full{display:none}.presentation-edition .edition-short{display:inline}}

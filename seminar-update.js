@@ -235,6 +235,14 @@
 
     document.body.classList.toggle('seminar-enhanced',enabled());
     const slide=document.querySelector('#stage .slide');
+    let versionNote=slide.querySelector('.slide-version-note');
+    if(!versionNote){
+      versionNote=document.createElement('p');versionNote.className='slide-version-note';
+      const heading=slide.querySelector('.slide-head');
+      const heroCopy=slide.querySelector('.hero-grid>div:first-child');
+      if(heading)heading.append(versionNote);else if(heroCopy)heroCopy.prepend(versionNote);else slide.prepend(versionNote);
+    }
+    versionNote.textContent=tr('Ақпарат 20.11.2026 күніне өзекті. Плагиндер мен дағдылардың мүмкіндіктері өзгеруі мүмкін.','Информация актуальна на 20.11.2026. Возможности плагинов и навыков могут меняться.');
     if(idx===ids.actions)slide.classList.add('next-actions-slide');
     if(extraIds.has(idx)||idx===ids.regions)slide.classList.add('seminar-addition',`seminar-page-${idx}`);
     if(idx===ids.regions&&!selected)document.querySelector('#dock [data-action="next"]').disabled=true;
