@@ -185,3 +185,5 @@
 .hero .slide-version-note,.end-slide .slide-version-note{color:#e5ddf5;background:#ffffff0d;border-left-color:#b69bff;margin:0 0 24px}
 @media(max-width:760px){.slide-version-note{font-size:12px;padding:9px 11px}}
 @media(max-width:800px){.presentation-edition{font-size:10px}.presentation-edition .edition-full{display:none}.presentation-edition .edition-short{display:inline}}
+
+.regional-college-summary{padding:18px 20px;border:1px solid #dce3ef;border-radius:14px;background:#fff}.regional-college-summary h3{margin:0 0 10px;font-size:18px;color:#24344e}.regional-college-summary .regional-note{margin:0 0 12px}

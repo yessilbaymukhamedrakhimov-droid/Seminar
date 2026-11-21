@@ -32,7 +32,7 @@
   const enabled=()=>enhanced.has(selected);
   const regionName=(id=selected)=>{const r=regions.find(r=>r[0]===id);return r?r[lang==='kz'?1:2]:'';};
   let dataRegion=['turkestan','kyzylorda'].includes(selected)?selected:'turkestan';
-  let search='',inactiveOnly=false;
+  let search='';
   const titles={
     41:["ChatGPT — чаттан да кең платформа","ChatGPT — больше, чем чат"],
     40:['Pedagog BilimAI College: жұмыс үлгісі','Pedagog BilimAI College: пример работы'],
@@ -68,7 +68,7 @@
     30:['QR-кодты сканерлеп, қатысу туралы ақпаратқа өтіңіз.','Отсканируйте QR-код, чтобы перейти к информации об участии.'],
     31:['Болашақ әзірлемелерге арналған ұсыныстарыңызды бірге талқылайық.','Обсудим ваши предложения для будущих разработок.'],
     32:['Сұрағыңыз болса, Telegram-дағы қолдау қызметіне жазыңыз.','Если нужна помощь, напишите в службу поддержки в Telegram.'],
-    33:['Облыс → аудан → колледж → педагогтер.','Область → район → колледж → педагоги.'],
+    33:['Облыстар, аудандар және колледждер бойынша жиынтық статистика.','Сводная статистика по областям, районам и колледжам.'],
     34:['Семинар туралы пікіріңізбен бөлісіңіз.','Поделитесь впечатлениями о семинаре.']
   };
   for(const l of ['kz','ru'])for(const [id,t] of Object.entries(titles)){
@@ -145,30 +145,22 @@
   function taskPrompt(){return tr('Әр дүйсенбіде Қазақстан уақытымен (UTC+5) сағат 08:00-де колледж студенттеріне арналған үш қысқа интерактивті тапсырма идеясын ұсын. Әрқайсысы үшін мақсатын, өткізу уақытын және қажетті материалдарды көрсет.','Каждый понедельник в 08:00 по времени Казахстана (UTC+5) предлагай три идеи коротких интерактивных заданий для студентов колледжа. Для каждой укажи цель, время проведения и необходимые материалы.');}
   function tasksView(){return `<div class="scheduled-panel"><div class="scheduled-layout"><section><div class="schedule-clock">${I('clock')}<div><strong>08:00</strong><span>${tr('Әр дүйсенбі · UTC+5','Каждый понедельник · UTC+5')}</span></div></div><ol class="schedule-steps">${[tr('Тапсырманы сипаттаңыз','Опишите задачу'),tr('Уақыт пен қайталану жиілігін көрсетіңіз','Укажите время и периодичность'),tr('ChatGPT растауын тексеріңіз','Проверьте подтверждение ChatGPT')].map(x=>`<li>${x}</li>`).join('')}</ol><p>${tr('Бір реттік еске салулар, тұрақты тапсырмалар және мерзімді шолулар. Хабарландыруларды баптаулардан қосуға болады.','Разовые напоминания, повторяющиеся задания и регулярные обзоры. Уведомления можно включить в настройках.')}</p></section><section class="schedule-prompt"><span class="soft-label">${tr('Педагогке арналған мысал','Пример для педагога')}</span><textarea id="scheduled-prompt" aria-label="${tr('Тапсырма сұрауы','Запрос для задачи')}" readonly>${E(taskPrompt())}</textarea><div class="actions"><button class="action" data-seminar="copy-task">${tr('Сұрауды көшіру','Скопировать запрос')}${I('copy')}</button>${link(tr('ChatGPT ашу','Открыть ChatGPT'),'https://chatgpt.com/','action secondary')}</div></section></div><p class="input-note schedule-note">${tr('Қолжетімділік аккаунт пен жұмыс кеңістігінің баптауларына байланысты. Тапсырмаларды Scheduled бөлімінде басқаруға болады.','Доступность зависит от аккаунта и настроек рабочего пространства. Управляйте задачами в разделе Scheduled.')}</p>${externalSources([['OpenAI · Scheduled tasks','https://help.openai.com/en/articles/10291617-scheduled-tasks-in-chatgpt']])}</div>`;}
   const metricLabels=()=>[tr('Модульді бастады','Начали модуль'),tr('Модульді аяқтады','Завершили модуль'),tr('Лицензияны іске қосты','Активировали лицензию'),tr('Лицензияны қолданады','Используют лицензию')];
-  const teachers=c=>c.teachers;
-  const people=d=>d.colleges.flatMap(teachers);
-  const inactive=p=>!(Number(p.values[3])>0);
   const number=v=>v==null?'—':E(v);
   function metrics(totals,cls=''){return `<div class="regional-metrics ${cls}">${metricLabels().map((s,j)=>`<div><strong>${number(totals[j])}</strong><span>${s}</span></div>`).join('')}</div>`;}
   function dataset(){return window.SEMINAR_REGIONAL_DATA.find(r=>r.id===dataRegion);}
   function dataResults(){
     const r=dataset(),q=search.trim().toLocaleLowerCase();let shown=0;
-    const districts=r.districts.map((d,di)=>{
+    const districts=r.districts.map(d=>{
       const districtMatches=d.name.toLocaleLowerCase().includes(q);
-      const colleges=d.colleges.map((c,ci)=>{
-        const collegeMatches=c.name.toLocaleLowerCase().includes(q);
-        const list=c.teachers.filter(p=>(!inactiveOnly||inactive(p))&&(!q||districtMatches||collegeMatches||p.name.toLocaleLowerCase().includes(q)));
-        if(!list.length&&(q||inactiveOnly))return '';shown+=list.length;
-        return `<details class="regional-college" ${q?'open':''}><summary><span>${E(c.name)}</span><small>${tr('Жазбалар','Записей')}: ${c.teachers.length} · ${tr('Белсенді емес','Неактивных')}: ${c.teachers.filter(inactive).length}</small></summary>${metrics(c.totals,'compact')}<div class="regional-table-wrap"><table class="regional-table"><thead><tr><th scope="col">${tr('Педагог','Педагог')}</th>${metricLabels().map(x=>`<th scope="col">${x}</th>`).join('')}<th scope="col">${tr('Мәртебе','Статус')}</th></tr></thead><tbody>${list.map(p=>`<tr class="${inactive(p)?'inactive':''}"><th scope="row">${E(p.name)}</th>${p.values.map(v=>`<td class="${!(Number(v)>0)?'missing':''}">${number(v)}</td>`).join('')}<td><span class="person-status ${inactive(p)?'off':'on'}">${inactive(p)?tr('Белсенді емес','Неактивен'):tr('Белсенді','Активен')}</span></td></tr>`).join('')}</tbody></table></div></details>`;
-      }).filter(Boolean).join('');
-      if(!colleges)return '';
-      return `<details class="regional-district" ${q||inactiveOnly?'open':''}><summary><span>${E(d.name)}</span><small>${d.colleges.length} ${tr('колледж','колледжей')} · ${people(d).length} ${tr('жазба','записей')}</small></summary>${metrics(d.totals,'compact')}<div class="regional-colleges">${colleges}</div></details>`;
+      const colleges=d.colleges.filter(c=>!q||districtMatches||c.name.toLocaleLowerCase().includes(q));
+      if(!colleges.length)return '';shown+=colleges.length;
+      return `<details class="regional-district" ${q?'open':''}><summary><span>${E(d.name)}</span><small>${d.colleges.length} ${tr('колледж','колледжей')} · ${d.teacherCount} ${tr('педагог','педагогов')}</small></summary>${metrics(d.totals,'compact')}<div class="regional-colleges">${colleges.map(c=>`<section class="regional-college regional-college-summary"><h3>${E(c.name)}</h3><p class="regional-note">${c.teacherCount} ${tr('педагог','педагогов')}</p>${metrics(c.totals,'compact')}</section>`).join('')}</div></details>`;
     }).filter(Boolean).join('');
-    return `<p class="regional-result-count" role="status">${tr('Көрсетілген педагог жазбалары','Показано записей педагогов')}: ${shown}</p>${districts||`<p class="regional-empty">${tr('Сәйкес жазба табылмады.','Подходящих записей не найдено.')}</p>`}`;
+    return `<p class="regional-result-count" role="status">${tr('Көрсетілген колледждер','Показано колледжей')}: ${shown}</p>${districts||`<p class="regional-empty">${tr('Сәйкес жазба табылмады.','Подходящих записей не найдено.')}</p>`}`;
   }
   function dataView(){
-    const r=dataset(),count=r.districts.flatMap(people).length;
-    return `${head()}<div class="regional-toolbar"><label>${tr('Облыс','Область')}<select id="regional-area">${window.SEMINAR_REGIONAL_DATA.map(a=>`<option value="${a.id}" ${a.id===dataRegion?'selected':''}>${E(regionName(a.id))}</option>`).join('')}</select></label><label class="regional-search-label">${tr('Аудан, колледж немесе педагог','Район, колледж или педагог')}<input id="regional-search" type="search" value="${E(search)}" placeholder="${tr('Іздеу…','Поиск…')}"></label><label class="regional-filter"><input id="regional-inactive" type="checkbox" ${inactiveOnly?'checked':''}>${tr('Тек белсенді емес','Только неактивные')}</label></div>${metrics(r.totals)}<p class="regional-note">${r.districts.length} ${tr('аудан / қала','районов / городов')} · ${r.districts.reduce((n,d)=>n+d.colleges.length,0)} ${tr('колледж','колледжей')} · ${count} ${tr('педагог жазбасы','записей педагогов')}. ${tr('Жиынтықтар Excel-дегі Total жолдарынан алынған. Бастапқы 2 мәндері сақталған. Қызыл түс — белгі жоқ; белсенділік лицензияны қолдану бағанымен анықталады.','Итоги взяты из строк Total в Excel. Исходные значения 2 сохранены. Красный цвет — нет отметки; активность определяется по использованию лицензии.')}</p><div id="regional-results">${dataResults()}</div>`;
+    const r=dataset();
+    return `${head()}<div class="regional-toolbar"><label>${tr('Облыс','Область')}<select id="regional-area">${window.SEMINAR_REGIONAL_DATA.map(a=>`<option value="${a.id}" ${a.id===dataRegion?'selected':''}>${E(regionName(a.id))}</option>`).join('')}</select></label><label class="regional-search-label">${tr('Аудан немесе колледж','Район или колледж')}<input id="regional-search" type="search" value="${E(search)}" placeholder="${tr('Іздеу…','Поиск…')}"></label></div>${metrics(r.totals)}<p class="regional-note">${r.districts.length} ${tr('аудан / қала','районов / городов')} · ${r.districts.reduce((n,d)=>n+d.colleges.length,0)} ${tr('колледж','колледжей')} · ${r.teacherCount} ${tr('педагог','педагогов')}. ${tr('Бастапқы деректердің жиынтық көрсеткіштері ғана берілген. Педагогтердің аты-жөні мен жеке жазбалары енгізілмеген.','Только сводные показатели исходной выгрузки. ФИО и персональные записи преподавателей не включены.')}</p><div id="regional-results">${dataResults()}</div>`;
   }
   const oldContent=content;
   function leafDiagram(){
@@ -258,7 +250,7 @@
       selected=choice.dataset.region;try{localStorage.setItem('seminar-region',selected);}catch{}
       const url=new URL(location.href);url.searchParams.set('region',selected);history.replaceState(null,'',url);
       if(['turkestan','kyzylorda'].includes(selected))dataRegion=selected;
-      search='';inactiveOnly=false;showRegionChoices=false;R.activation=enabled()?'steps':'video';rebuild();go(['atyrau','kostanay','aktobe','almaty-region','east'].includes(selected)?ids.regions:enabled()?ids.meet:7);return;
+      search='';showRegionChoices=false;R.activation=enabled()?'steps':'video';rebuild();go(['atyrau','kostanay','aktobe','almaty-region','east'].includes(selected)?ids.regions:enabled()?ids.meet:7);return;
     }
     const b=e.target.closest('[data-seminar]');if(!b)return;
     if(b.dataset.seminar==='drive-pause'){const root=b.closest('.drive-demo-panel');const paused=root.classList.toggle('demo-paused');b.textContent=paused?tr('Жалғастыру','Продолжить'):tr('Кідірту','Пауза');return;}
@@ -283,8 +275,7 @@
   });
   document.addEventListener('input',e=>{if(e.target.id==='regional-search'){search=e.target.value;document.getElementById('regional-results').innerHTML=dataResults();}});
   document.addEventListener('change',e=>{
-    if(e.target.id==='regional-area'){dataRegion=e.target.value;search='';inactiveOnly=false;render();document.getElementById('regional-area').focus();}
-    if(e.target.id==='regional-inactive'){inactiveOnly=e.target.checked;document.getElementById('regional-results').innerHTML=dataResults();}
+    if(e.target.id==='regional-area'){dataRegion=e.target.value;search='';render();document.getElementById('regional-area').focus();}
   });
   const m=initialHash.match(/^#(kz|ru|en)\/(\d+)$/);if(m){lang=m[1]==='en'?'ru':m[1];idx=allowed(Number(m[2])-1);}else idx=allowed(idx);
   render();
